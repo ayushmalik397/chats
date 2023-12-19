@@ -5,18 +5,20 @@ import ChatCard from "./ChatCard";
 
 function Chat() {
   const [chats, setChats] = useState([]);
+  const [isChatsDesc, setIsChatsDesc] = useState();
 
   useEffect(() => {
     let storedChats = localStorage.getItem("chats") || [];
     if (storedChats.length > 0) {
       storedChats = JSON.parse(storedChats);
       setChats(storedChats);
+      sortChats(true, storedChats);
     } else {
       localStorage.setItem("chats", "");
     }
   }, []);
 
-  const addChat = ({ name, comment, time }) => {
+  const addChat = ({ name, comment }) => {
     const chatObj = {
       name,
       comment,
@@ -63,45 +65,40 @@ function Chat() {
     setChats(tempChats);
   };
 
-  const sortChats = (order) => {
-    const tempChats = [...chats];
+  const sortChats = (isDesc, currChat = []) => {
+    const tempChats = chats.length ? [...chats] : [...currChat];
     tempChats.forEach((chat) => {
       if (chat.replies) {
-        if (order === "asc") {
+        if (isDesc) {
           chat.replies.sort(
-            (a, b) => parseFloat(a.dateAndTime) - parseFloat(b.dateAndTime)
+            (a, b) => parseFloat(b.dateAndTime) - parseFloat(a.dateAndTime)
           );
         } else {
           chat.replies.sort(
-            (a, b) => parseFloat(b.dateAndTime) - parseFloat(a.dateAndTime)
+            (a, b) => parseFloat(a.dateAndTime) - parseFloat(b.dateAndTime)
           );
         }
       }
     });
-    if (order === "asc") {
-      tempChats.sort(
-        (a, b) => parseFloat(a.dateAndTime) - parseFloat(b.dateAndTime)
-      );
-    } else {
+    if (isDesc) {
       tempChats.sort(
         (a, b) => parseFloat(b.dateAndTime) - parseFloat(a.dateAndTime)
       );
+    } else {
+      tempChats.sort(
+        (a, b) => parseFloat(a.dateAndTime) - parseFloat(b.dateAndTime)
+      );
     }
     setChats(tempChats);
+    setIsChatsDesc(!isChatsDesc);
   };
 
   return (
     <div>
       <AddChatContainer title="Comment" onSubmit={addChat} />
       {chats.length > 0 && (
-        <div className="sortChats">
-          Sort by{" "}
-          <span className="sortText" onClick={() => sortChats("asc")}>
-            Older First↓
-          </span>{" "}
-          <span className="sortText" onClick={() => sortChats("desc")}>
-            Newer First↑
-          </span>
+        <div className="sortChats" onClick={() => sortChats(!isChatsDesc)}>
+          Sort by Date & Time ↓↑
         </div>
       )}
       <div>
