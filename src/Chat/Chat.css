@@ -1,0 +1,82 @@
+.addChatContainer {
+  width: 400px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  margin-top: 10px;
+  padding: 10px;
+  background: #ebebeb;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chatCard {
+  width: 400px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  margin-top: 20px;
+  padding: 10px;
+  background: #ebebeb;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.reply {
+  width: 300px;
+  left: 100px;
+}
+
+.chatContent {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input {
+  border: none;
+  border-radius: 2px;
+  padding: 4px;
+}
+
+.submitBtn {
+  float: right;
+  width: 100px;
+  height: 24px;
+  background: #319af5;
+  border: none;
+  border-radius: 2px;
+  color: white;
+  cursor: pointer;
+}
+
+.actionsBtn > span {
+  color: #319af5;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.chatDelete {
+  position: absolute;
+  right: -10px;
+  top: 35px;
+  background: black;
+  color: white;
+  border-radius: 20px;
+  padding: 2px 5px;
+  cursor: pointer;
+}
+
+.errorMsg {
+  color: red;
+}
+
+.sortChats {
+  float: right;
+  margin: 10px 4px;
+  cursor: pointer;
+}
+
+.sortText:hover {
+  text-decoration: underline;
+}
